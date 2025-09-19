@@ -132,7 +132,7 @@ class BasicDataVerifier:
             doc_data[doc.document_type] = {
                 'patient_name': doc.extracted_patient_name,
                 'patient_id': doc.extracted_patient_id,
-                'date': doc.extracted_date,
+                'date': doc.extracted_date.isoformat() if doc.extracted_date else None,
                 'city': doc.extracted_city,
                 'doctor': doc.extracted_doctor,
                 'procedure': doc.extracted_procedure

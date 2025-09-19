@@ -1,7 +1,7 @@
 import pytest
 from rest_framework.test import APIRequestFactory
 
-from vgmedical_verification.users.api.views import UserViewSet
+from vgmedical_verification.users.api.views.user import UserViewSet
 from vgmedical_verification.users.models import User
 
 
@@ -29,6 +29,7 @@ class TestUserViewSet:
         response = view.me(request)  # type: ignore[call-arg, arg-type, misc]
 
         assert response.data == {
-            "url": f"http://testserver/api/users/{user.pk}/",
-            "name": user.name,
+            "id": str(user.pk),
+            "full_name": user.full_name,
+            "email": user.email,
         }

@@ -99,8 +99,7 @@ class DocumentProcessor:
             surgery_date=base_data.get('surgery_date', timezone.now().date()),
             city=base_data.get('city', ''),
             doctor_name=base_data.get('doctor_name', ''),
-            procedure=base_data.get('procedure', ''),
-            created_by=user
+            procedure=base_data.get('procedure', '')
         )
 
         return case
