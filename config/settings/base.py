@@ -89,7 +89,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "vgmedical_verification.users",
-    # Your stuff: custom apps go here
+    "vgmedical_verification.apps.document_processor",
+    "vgmedical_verification.apps.verification",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -326,7 +327,9 @@ ACCOUNT_FORMS = {"signup": "vgmedical_verification.users.forms.UserSignupForm"}
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
 SOCIALACCOUNT_ADAPTER = "vgmedical_verification.users.adapters.SocialAccountAdapter"
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
-SOCIALACCOUNT_FORMS = {"signup": "vgmedical_verification.users.forms.UserSocialSignupForm"}
+SOCIALACCOUNT_FORMS = {
+    "signup": "vgmedical_verification.users.forms.UserSocialSignupForm",
+}
 
 # django-rest-framework
 # -------------------------------------------------------------------------------
@@ -365,8 +368,7 @@ REST_AUTH = {
         "email": {"required": True},
     },
 }
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_REQUIRED = True
+# Eliminar variables deprecadas
 
 REST_USE_JWT = True
 
@@ -374,4 +376,26 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": False,
+}
+
+# Maximum file upload size (50MB para documentos médicos)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024  # 50MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024   # 50MB
+
+# OCR Configuration
+TESSERACT_CMD = env('TESSERACT_CMD', default='/usr/bin/tesseract')
+TESSERACT_TIMEOUT = 60  # segundos
+
+# Supported file types
+ALLOWED_DOCUMENT_TYPES = [
+    'pdf', 'jpg', 'jpeg', 'png', 'bmp', 'tiff'
+]
+
+# Verification thresholds
+VERIFICATION_THRESHOLDS = {
+    'basic_data_match': 80,      # % mínimo para aprobar datos básicos
+    'supplies_match': 90,        # % mínimo para aprobar insumos
+    'traceability_complete': 95, # % mínimo para trazabilidad
+    'overall_score': 85,         # Score mínimo para aprobación automática
+    'fuzzy_matching': 85,        # Umbral para fuzzy matching de nombres
 }

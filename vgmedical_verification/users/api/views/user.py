@@ -6,9 +6,8 @@ from rest_framework.mixins import UpdateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from vgmedical_verification.users.models import User
-
 from vgmedical_verification.users.api.serializers.user import UserSerializer
+from vgmedical_verification.users.models import User
 
 
 class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericViewSet):
