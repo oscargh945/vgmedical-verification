@@ -192,7 +192,7 @@ dependencies = [
     "uvicorn-worker==0.3.0",
     "uvicorn[standard]==0.35.0",
     "whitenoise==6.11.0",
-    "dj-rest-auth==6.0.0",
+    "dj-rest-auth==7.0.1",
     "djangorestframework-simplejwt==5.3.1",
     "pytesseract>=0.3.10",
     "Pillow>=10.0.0",
